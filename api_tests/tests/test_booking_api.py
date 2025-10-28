@@ -51,4 +51,18 @@ def test_get_booking_by_id(api_client):
     assert booking_data["firstname"] == payload["firstname"]
     assert booking_data["lastname"] == payload["lastname"]
 
+@pytest.mark.api
+def test_delete_booking(api_client):
 
+    payload = generate_booking_payload()
+    create_response = api_client.post(f"{BASE_URL}/booking", json=payload)
+    booking_id = create_response.json().get("bookingid")
+
+    
+    token_response = requests.post(f"{BASE_URL}/auth", json={"username": "admin", "password": "password123"})
+    token = token_response.json().get("token")
+
+    delete_headers = {"Cookie": f"token={token}"}
+    delete_response = api_client.delete(f"{BASE_URL}/booking/{booking_id}", headers=delete_headers)
+
+    assert delete_response.status_code in [201,200]

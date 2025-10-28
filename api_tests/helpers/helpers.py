@@ -15,7 +15,7 @@ def generate_booking_payload():
         "depositpaid": True,
         "bookingdates": {
             "checkin": "2025-10-20",
-            "checkout": "2025-10-25"
+            "checkout": "2025-10-30"
         },
         "additionalneeds": "breakfast & dinner"
     }
